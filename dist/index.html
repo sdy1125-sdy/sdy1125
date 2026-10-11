@@ -24,6 +24,12 @@
   <script src="app.js" type="module"></script>
 </head>
 <body>
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M9 5h10v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z" fill="currentColor"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  </svg>
   <a class="skip-link" href="#profile">Đến nội dung chính</a>
   <div class="experience" id="experience">
     <div class="scene" aria-hidden="true">
@@ -37,47 +43,48 @@
     </div>
 
     <header class="site-header">
-      <a class="brand" href="#profile" aria-label="Trang cá nhân Sdy"><span class="brand-star" aria-hidden="true">✳</span><span>SDY<span class="brand-point">.</span>SPACE</span></a>
+      <a class="brand" href="#profile" aria-label="Trang cá nhân Sdy"><svg class="ui-icon brand-star" aria-hidden="true"><use href="#icon-spark"></use></svg><span>SDY<span class="brand-point">.</span>SPACE</span></a>
       <div class="header-right">
         <span class="status"><i aria-hidden="true"></i><span>PERSONAL SIGNAL / ONLINE</span></span>
-        <button id="command-toggle" class="command-toggle" type="button" aria-label="Mở bảng lệnh" aria-haspopup="dialog"><span aria-hidden="true">⌘</span><span class="command-label">COMMAND</span><kbd>/</kbd></button>
+        <button id="command-toggle" class="command-toggle" type="button" aria-label="Mở bảng lệnh" aria-haspopup="dialog"><span aria-hidden="true">&gt;_</span><span class="command-label">COMMAND</span><kbd>/</kbd></button>
       </div>
     </header>
 
     <main id="profile" class="profile">
       <section class="identity" aria-labelledby="person-name">
-        <div class="identity-top"><span class="eyebrow"><span class="small-rule"></span> 001 / THE PERSON</span><span class="identity-cross" aria-hidden="true">↗</span></div>
+        <div class="identity-top"><span class="eyebrow"><span class="small-rule"></span> 001 / THE PERSON</span><svg class="ui-icon identity-cross" aria-hidden="true"><use href="#icon-arrow"></use></svg></div>
         <p class="hello">Vi anh la</p>
         <h1 id="person-name">Sdy</h1>
         <div class="identity-meta"><span class="role-mark">&lt;</span><span id="person-role">Developer</span><span class="role-mark">/&gt;</span></div>
         <p id="person-intro" class="tagline">u make me feel better<span class="tagline-period">.</span></p>
-        <div class="identity-caption"><span class="caption-icon" aria-hidden="true">✳</span><span>Nói nhiều chút</span></div>
+        <div class="identity-caption"><svg class="ui-icon caption-icon" aria-hidden="true"><use href="#icon-spark"></use></svg><span>Nói nhiều chút</span></div>
       </section>
 
       <section class="social-area" aria-labelledby="social-heading">
-        <div class="social-heading"><div><span class="eyebrow">002 / FIND ME</span><h2 id="social-heading">Kết nối<span class="heading-arrow"> ↗</span></h2></div><span class="link-count" id="link-count">04</span></div>
+        <div class="social-heading"><div><span class="eyebrow">002 / FIND ME</span><h2 id="social-heading">Kết nối <svg class="ui-icon heading-arrow" aria-hidden="true"><use href="#icon-arrow"></use></svg></h2></div><span class="link-count" id="link-count">04</span></div>
         <div id="social-list" class="social-list"></div>
       </section>
     </main>
 
     <footer class="bottom-bar">
       <div class="music" id="music" aria-label="Trình phát nhạc">
-        <button id="play-button" class="play-button" type="button" aria-label="Bật nhạc"><span aria-hidden="true">▶</span></button>
+        <button id="play-button" class="play-button" type="button" aria-label="Bật nhạc"><svg class="ui-icon icon-play" aria-hidden="true"><use href="#icon-play"></use></svg><svg class="ui-icon icon-pause" aria-hidden="true"><use href="#icon-pause"></use></svg></button>
         <div class="music-info"><span class="music-kicker">NOW PLAYING · LOOP</span><strong id="music-title">Tìm Em</strong><span id="music-status" class="music-status" role="status">Chạm để phát</span></div>
         <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <label class="sr-only" for="track-progress">Tua bài nhạc</label>
         <input id="track-progress" type="range" min="0" max="100" value="0" disabled>
         <span id="track-time" class="track-time">0:00</span>
       </div>
-      <span class="footer-note"><span class="note-cross" aria-hidden="true">✳</span> PHOTO / SOUND / CONNECTION</span>
+      <span class="footer-note"><svg class="ui-icon note-cross" aria-hidden="true"><use href="#icon-spark"></use></svg> PHOTO / SOUND / CONNECTION</span>
     </footer>
   </div>
+  <audio id="background-audio" src="background-music.mp3" preload="auto" autoplay loop hidden></audio>
 
   <div id="command-dialog" class="command-backdrop" hidden>
     <div class="command-panel" role="dialog" aria-modal="true" aria-labelledby="command-title">
-      <div class="command-header"><span id="command-title">QUICK COMMANDS / SDY</span><button id="command-close" type="button" aria-label="Đóng bảng lệnh">✕</button></div>
+      <div class="command-header"><span id="command-title">QUICK COMMANDS / SDY</span><button id="command-close" type="button" aria-label="Đóng bảng lệnh">×</button></div>
       <div id="command-output" class="command-output" aria-live="polite"><p>Gõ <strong>help</strong> để xem lệnh. Nội dung chính đã có ngay trên màn hình.</p></div>
-      <form id="command-form" class="command-form" autocomplete="off"><span aria-hidden="true">➜</span><label class="sr-only" for="command-input">Nhập lệnh</label><input id="command-input" type="text" spellcheck="false" placeholder="help / links / music / whoami"><button type="submit" aria-label="Chạy lệnh">↵</button></form>
+      <form id="command-form" class="command-form" autocomplete="off"><span aria-hidden="true">&gt;</span><label class="sr-only" for="command-input">Nhập lệnh</label><input id="command-input" type="text" spellcheck="false" placeholder="help / links / music / whoami"><button type="submit" aria-label="Chạy lệnh">RUN</button></form>
       <div class="command-hints"><button type="button" data-command="help">help</button><button type="button" data-command="links">links</button><button type="button" data-command="whoami">whoami</button></div>
     </div>
   </div>

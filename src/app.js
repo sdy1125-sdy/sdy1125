@@ -13,6 +13,16 @@ const assetUrl = (value) => {
   return safeUrl(value);
 };
 const formatTime = (seconds) => Number.isFinite(seconds) ? Math.floor(seconds / 60) + ':' + String(Math.floor(seconds % 60)).padStart(2, '0') : '0:00';
+const arrowIcon = () => {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.classList.add('ui-icon');
+  use.setAttribute('href', '#icon-arrow');
+  svg.append(use);
+  return svg;
+};
 
 function renderLinks(links) {
   const list = $('#social-list');
@@ -31,13 +41,13 @@ function renderLinks(links) {
     mark.className = 'social-icon';
     mark.setAttribute('aria-hidden', 'true');
     if (icons[item.icon]) mark.style.setProperty('--icon', 'url("' + new URL(icons[item.icon], document.baseURI).href + '")');
-    else mark.textContent = '↗';
+    else mark.append(arrowIcon());
     const name = document.createElement('span');
     name.className = 'social-name';
     name.textContent = item.label;
     const arrow = document.createElement('span');
     arrow.className = 'social-arrow';
-    arrow.textContent = '↗';
+    arrow.append(arrowIcon());
     arrow.setAttribute('aria-hidden', 'true');
     link.append(mark, name, arrow);
     list.append(link);
@@ -63,36 +73,40 @@ function setupMusic(media) {
     status.textContent = 'Chưa có tệp nhạc';
     return null;
   }
-  const player = new Audio(url);
+  const player = $('#background-audio');
+  if (player.src !== url) player.src = url;
   player.loop = true;
-  player.preload = 'metadata';
+  player.preload = 'auto';
   player.autoplay = true;
   player.volume = .78;
   let userPaused = false;
   let playFailed = false;
+  let mediaError = false;
   const update = () => {
     const playing = !player.paused;
     music.dataset.playing = String(playing);
+    music.dataset.awaiting = String(playFailed && !playing);
     button.setAttribute('aria-label', playing ? 'Tạm dừng nhạc' : 'Bật nhạc');
-    button.firstElementChild.textContent = playing ? 'Ⅱ' : '▶';
-    status.textContent = playing ? 'Đang phát' : playFailed ? 'Chạm để phát' : 'Đã tạm dừng';
+    status.textContent = mediaError ? 'Không phát được tệp nhạc' : playing ? 'Đang phát' : playFailed ? 'Chạm để bật nhạc' : userPaused ? 'Đã tạm dừng' : 'Sẵn sàng';
   };
   const play = async () => {
+    if (mediaError || !player.paused) return;
     try {
       await player.play();
       playFailed = false;
       update();
     } catch (error) {
-      playFailed = true;
-      status.textContent = error.name === 'NotAllowedError' ? 'Chạm để phát' : 'Không phát được tệp nhạc';
+      playFailed = error.name === 'NotAllowedError';
+      if (error.name !== 'NotAllowedError' && error.name !== 'AbortError') mediaError = true;
       update();
     }
   };
   button.addEventListener('click', () => {
-    if (player.paused) { userPaused = false; play(); }
-    else { userPaused = true; player.pause(); }
+    if (player.paused) { userPaused = false; void play(); }
+    else { userPaused = true; player.pause(); update(); }
   });
   player.addEventListener('play', update);
+  player.addEventListener('playing', () => { playFailed = false; update(); });
   player.addEventListener('pause', update);
   player.addEventListener('timeupdate', () => {
     const duration = player.duration;
@@ -101,20 +115,23 @@ function setupMusic(media) {
   });
   player.addEventListener('loadedmetadata', () => { progress.disabled = false; });
   player.addEventListener('error', () => {
-    status.textContent = 'Không phát được tệp nhạc';
+    mediaError = true;
     button.disabled = true;
+    update();
   });
   progress.addEventListener('input', () => {
     if (Number.isFinite(player.duration)) player.currentTime = Number(progress.value) / 100 * player.duration;
   });
   const retry = (event) => {
     if (userPaused || !player.paused || button.contains(event.target)) return;
-    play();
+    void play();
   };
-  document.addEventListener('pointerdown', retry, { passive: true });
-  document.addEventListener('keydown', retry);
+  document.addEventListener('touchend', retry, { capture: true, passive: true });
+  document.addEventListener('click', retry, true);
+  document.addEventListener('keydown', retry, true);
+  addEventListener('pageshow', () => { if (!userPaused) void play(); });
   update();
-  play();
+  void play();
   return { player, toggle: () => button.click() };
 }
 
@@ -231,7 +248,7 @@ function setupCommands(config, music) {
     const command = raw.trim().toLowerCase();
     if (!command) return;
     if (command === 'clear') { output.replaceChildren(); return; }
-    print('➜ ' + command);
+    print('> ' + command);
     if (command === 'help') print('help · whoami · links · contact · music · about · projects · clear');
     else if (command === 'whoami' || command === 'about') print(config.name + ' — ' + config.role + '. ' + config.intro);
     else if (command === 'links' || command === 'contact') print('GitHub · Facebook · Discord · Instagram. Chọn một liên kết ngay trên trang.');
