@@ -29,7 +29,6 @@ jobs:
       - run: npm run build
       - name: Prepare static site
         run: |
-          rm -f dist/developer-bio-link-termux.tar.gz
           touch dist/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

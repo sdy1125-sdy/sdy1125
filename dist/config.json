@@ -1,0 +1,46 @@
+{
+  "name": "Sdy",
+  "role": "Developer",
+  "intro": "u make me feel better",
+  "siteUrl": "https://sdy1125-sdy.github.io/sdy1125",
+  "media": {
+    "images": [
+      {
+        "src": "/portrait.jpg",
+        "alt": "Một người mặc đồ đen bên hồ và hàng thông dưới bầu trời xanh",
+        "caption": "Một khoảnh khắc của mình",
+        "note": "Ảnh cá nhân"
+      }
+    ],
+    "audio": {
+      "title": "Tìm Em",
+      "fileUrl": "/background-music.mp3"
+    }
+  },
+  "links": [
+    {
+      "label": "GitHub",
+      "handle": "@sdy1125",
+      "url": "https://github.com/sdy1125",
+      "icon": "github"
+    },
+    {
+      "label": "Facebook",
+      "handle": "nothing.d0125",
+      "url": "https://www.facebook.com/nothing.d0125/",
+      "icon": "facebook"
+    },
+    {
+      "label": "Discord",
+      "handle": "Nhắn cho Sdy",
+      "url": "https://discord.com/users/949192558435794954",
+      "icon": "discord"
+    },
+    {
+      "label": "Instagram",
+      "handle": "@d_sy125",
+      "url": "https://www.instagram.com/d_sy125",
+      "icon": "instagram"
+    }
+  ]
+}

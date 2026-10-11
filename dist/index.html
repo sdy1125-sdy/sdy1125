@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080a10">
+  <meta name="description" content="u make me feel better. Ảnh cá nhân, âm nhạc và các kênh kết nối của Sdy.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sdy — Developer">
+  <meta property="og:description" content="u make me feel better. Ảnh cá nhân, âm nhạc và các kênh kết nối của Sdy.">
+  <meta property="og:url" content="https://sdy1125-sdy.github.io/sdy1125">
+  <meta property="og:image" content="https://sdy1125-sdy.github.io/sdy1125/og.png">
+  <meta property="og:image:alt" content="Sdy — developer, ảnh và âm nhạc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sdy — Developer">
+  <meta name="twitter:description" content="u make me feel better. Ảnh cá nhân, âm nhạc và các kênh kết nối của Sdy.">
+  <meta name="twitter:image" content="https://sdy1125-sdy.github.io/sdy1125/og.png">
+  <title>Sdy — Developer</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#profile">Đến nội dung chính</a>
+  <div class="experience" id="experience">
+    <div class="scene" aria-hidden="true">
+      <img id="portrait" class="portrait" src="portrait.jpg" alt="">
+      <div class="scene-tint"></div>
+      <div class="scene-glow"></div>
+      <div class="scene-grain"></div>
+      <canvas id="rain-canvas" class="rain-canvas"></canvas>
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#profile" aria-label="Trang cá nhân Sdy"><span class="brand-star" aria-hidden="true">✳</span><span>SDY<span class="brand-point">.</span>SPACE</span></a>
+      <div class="header-right">
+        <span class="status"><i aria-hidden="true"></i><span>PERSONAL SIGNAL / ONLINE</span></span>
+        <button id="command-toggle" class="command-toggle" type="button" aria-label="Mở bảng lệnh" aria-haspopup="dialog"><span aria-hidden="true">⌘</span><span class="command-label">COMMAND</span><kbd>/</kbd></button>
+      </div>
+    </header>
+
+    <main id="profile" class="profile">
+      <section class="identity" aria-labelledby="person-name">
+        <div class="identity-top"><span class="eyebrow"><span class="small-rule"></span> 001 / THE PERSON</span><span class="identity-cross" aria-hidden="true">↗</span></div>
+        <p class="hello">Xin chào, mình là</p>
+        <h1 id="person-name">Sdy</h1>
+        <div class="identity-meta"><span class="role-mark">&lt;</span><span id="person-role">Developer</span><span class="role-mark">/&gt;</span></div>
+        <p id="person-intro" class="tagline">u make me feel better<span class="tagline-period">.</span></p>
+        <div class="identity-caption"><span class="caption-icon" aria-hidden="true">✳</span><span>một góc nhỏ của mình trên internet</span></div>
+      </section>
+
+      <section class="social-area" aria-labelledby="social-heading">
+        <div class="social-heading"><div><span class="eyebrow">002 / FIND ME</span><h2 id="social-heading">Kết nối<span class="heading-arrow"> ↗</span></h2></div><span class="link-count" id="link-count">04</span></div>
+        <div id="social-list" class="social-list"></div>
+      </section>
+    </main>
+
+    <footer class="bottom-bar">
+      <div class="music" id="music" aria-label="Trình phát nhạc">
+        <button id="play-button" class="play-button" type="button" aria-label="Bật nhạc"><span aria-hidden="true">▶</span></button>
+        <div class="music-info"><span class="music-kicker">NOW PLAYING · LOOP</span><strong id="music-title">Tìm Em</strong><span id="music-status" class="music-status" role="status">Chạm để phát</span></div>
+        <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <label class="sr-only" for="track-progress">Tua bài nhạc</label>
+        <input id="track-progress" type="range" min="0" max="100" value="0" disabled>
+        <span id="track-time" class="track-time">0:00</span>
+      </div>
+      <span class="footer-note"><span class="note-cross" aria-hidden="true">✳</span> PHOTO / SOUND / CONNECTION</span>
+    </footer>
+  </div>
+
+  <div id="command-dialog" class="command-backdrop" hidden>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-labelledby="command-title">
+      <div class="command-header"><span id="command-title">QUICK COMMANDS / SDY</span><button id="command-close" type="button" aria-label="Đóng bảng lệnh">✕</button></div>
+      <div id="command-output" class="command-output" aria-live="polite"><p>Gõ <strong>help</strong> để xem lệnh. Nội dung chính đã có ngay trên màn hình.</p></div>
+      <form id="command-form" class="command-form" autocomplete="off"><span aria-hidden="true">➜</span><label class="sr-only" for="command-input">Nhập lệnh</label><input id="command-input" type="text" spellcheck="false" placeholder="help / links / music / whoami"><button type="submit" aria-label="Chạy lệnh">↵</button></form>
+      <div class="command-hints"><button type="button" data-command="help">help</button><button type="button" data-command="links">links</button><button type="button" data-command="whoami">whoami</button></div>
+    </div>
+  </div>
+</body>
+</html>

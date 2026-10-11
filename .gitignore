@@ -1,5 +1,5 @@
 node_modules/
-dist/
+dist/developer-bio-link-termux.tar.gz
 .openai/
 .backup-*.tar.gz
 *.log

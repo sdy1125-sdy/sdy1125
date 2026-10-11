@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node build.mjs && node server.mjs",
-    "build": "node build.mjs",
-    "lint": "node --check build.mjs && node --check server.mjs && node --check src/app.js"
+    "dev": "node server.mjs",
+    "build": "node verify.mjs",
+    "build:from-src": "node build.mjs",
+    "lint": "node --check build.mjs && node --check server.mjs && node --check verify.mjs && node --check dist/app.js"
   }
 }
