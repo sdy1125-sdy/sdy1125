@@ -4,7 +4,7 @@ import { join } from 'node:path';
 const dist = new URL('./dist/', import.meta.url).pathname;
 const required = [
   'index.html', 'style.css', 'app.js', 'config.json',
-  'portrait.jpg', 'background-music.mp3', 'favicon.svg', 'og.png'
+  'portrait-cafe.jpg', 'background-music.mp3', 'favicon.svg', 'og.png'
 ];
 
 for (const file of required) {

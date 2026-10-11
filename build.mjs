@@ -18,11 +18,12 @@ const description = `${config.intro}. Ảnh cá nhân, âm nhạc và các kênh
 let html = await readFile(join(src, 'index.html'), 'utf8');
 const siteUrl = String(config.siteUrl || '').replace(/\/$/, '');
 if (!/^https:\/\//.test(siteUrl)) throw new Error('src/config.json cần siteUrl là URL https hợp lệ.');
+const ogImage = config.media?.images?.[0]?.src || '/og.png';
 html = html
   .replaceAll('%%TITLE%%', escape(title))
   .replaceAll('%%DESCRIPTION%%', escape(description))
   .replaceAll('%%SITE_URL%%', escape(siteUrl))
-  .replaceAll('%%OG_IMAGE%%', escape(siteUrl + '/og.png'));
+  .replaceAll('%%OG_IMAGE%%', escape(siteUrl + ogImage));
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await Promise.all([
