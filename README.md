@@ -20,9 +20,9 @@ siteUrl trong config dùng cho metadata khi chia sẻ. Sau khi triển khai ở 
 
 ## Đăng lên GitHub Pages
 
-Kho công khai dành cho trang này là `sdy1125/sdy1125.github.io`. Đặt mã nguồn lên nhánh `main` của kho đó, rồi tại **Settings → Pages → Build and deployment → Source** chọn **GitHub Actions**. Workflow `.github/workflows/pages.yml` sẽ chạy lint/build và xuất thư mục `dist/`. Khi workflow thành công, trang ở `https://sdy1125.github.io/`. Mỗi lần đẩy bản cập nhật lên `main`, trang sẽ tự xuất bản lại.
+Kho công khai dành cho trang này là `sdy1125-sdy/sdy1125`. Đặt mã nguồn lên nhánh `main` của kho đó, rồi tại **Settings → Pages → Build and deployment → Source** chọn **GitHub Actions**. Workflow `.github/workflows/pages.yml` sẽ chạy lint/build và xuất thư mục `dist/`. Khi workflow thành công, trang ở `https://sdy1125-sdy.github.io/sdy1125/`. Mỗi lần đẩy bản cập nhật lên `main`, trang sẽ tự xuất bản lại.
 
-Kho cần công khai để mọi người mở được link. File `.gitignore` loại trừ các bản sao lưu, cấu hình hosting cũ và `dist/`; workflow cũng bỏ gói tar dành cho Termux khỏi bản xuất bản. Đổi `siteUrl` trong `src/config.json` nếu dùng địa chỉ khác. Các đường dẫn tài nguyên bắt đầu từ `/`, nên nếu đổi sang kho dự án có URL dạng `/ten-kho/`, cần sửa đường dẫn tương ứng.
+Kho cần công khai để mọi người mở được link. File `.gitignore` loại trừ các bản sao lưu, cấu hình hosting cũ và `dist/`; workflow cũng bỏ gói tar dành cho Termux khỏi bản xuất bản. Đổi `siteUrl` trong `src/config.json` nếu dùng địa chỉ khác. Đường dẫn tài nguyên trong HTML/JS tương đối với thư mục trang, nên chạy được cả ở URL có `/ten-kho/`.
 
 Nếu chạy trên Termux, vào đúng thư mục dự án và dùng npm run dev. Máy chủ phát triển mặc định chỉ nghe ở 127.0.0.1; để người khác xem từ Internet, triển khai dist/ lên hosting tĩnh. Không cần XAMPP.
 

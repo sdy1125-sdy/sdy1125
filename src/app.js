@@ -9,14 +9,14 @@ const safeUrl = (value) => {
 };
 const assetUrl = (value) => {
   if (typeof value !== 'string') return null;
-  if (value.startsWith('/') && !value.startsWith('//') && !value.split('/').includes('..')) return value;
+  if (value.startsWith('/') && !value.startsWith('//') && !value.split('/').includes('..')) return new URL(value.slice(1), document.baseURI).href;
   return safeUrl(value);
 };
 const formatTime = (seconds) => Number.isFinite(seconds) ? Math.floor(seconds / 60) + ':' + String(Math.floor(seconds % 60)).padStart(2, '0') : '0:00';
 
 function renderLinks(links) {
   const list = $('#social-list');
-  const icons = { github: '/icons/github.svg', facebook: '/icons/facebook.svg', discord: '/icons/discord.svg', instagram: '/icons/instagram.svg' };
+  const icons = { github: 'icons/github.svg', facebook: 'icons/facebook.svg', discord: 'icons/discord.svg', instagram: 'icons/instagram.svg' };
   const active = links.filter((item) => safeUrl(item.url));
   $('#link-count').textContent = String(active.length).padStart(2, '0');
   for (const item of active) {
@@ -30,7 +30,7 @@ function renderLinks(links) {
     const mark = document.createElement('span');
     mark.className = 'social-icon';
     mark.setAttribute('aria-hidden', 'true');
-    if (icons[item.icon]) mark.style.setProperty('--icon', 'url("' + icons[item.icon] + '")');
+    if (icons[item.icon]) mark.style.setProperty('--icon', 'url("' + new URL(icons[item.icon], document.baseURI).href + '")');
     else mark.textContent = '↗';
     const name = document.createElement('span');
     name.className = 'social-name';
@@ -254,7 +254,7 @@ function setupCommands(config, music) {
 
 async function init() {
   try {
-    const response = await fetch('/config.json');
+    const response = await fetch(new URL('config.json', document.baseURI));
     if (!response.ok) throw new Error('Không tải được cấu hình.');
     const config = await response.json();
     $('#person-name').textContent = config.name || 'Tên của bạn';
